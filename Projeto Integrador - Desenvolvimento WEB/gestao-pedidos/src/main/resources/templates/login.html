@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="#" alt="Logo que irei criar depois no final do projeto" />
+            <p>
+                Atuamos no mercado desde 1980 Há 44 anos <br> trabalhamos para servi-lo, sempre pautada na ética e com foco na qualidade e eficiência. Estamos à sua disposição, totalmente comprometidos, como um verdadeira parceiro, para que você tenha o melhor resultado, no menor tempo possível! <br>
+Somos um Centro de Serviços de beneficiamento de aços planos e fornecedora de aços com certificados originais das usinas siderúrgicas para os setores automobilístico, autopeças, construção civil, máquinas, equipamentos e eletroeletrônicos, entre outros.
+            </p>
+        </div>
+        <div class="right-panel">
+            <form th:action="@{/login}" method="post" th:object="${usuario}" class="login-form">
+                <img src="#" alt="Logo" />
+                <input type="text" th:field="*{login}" placeholder="Usuário" required />
+                <input type="password" th:field="*{senha}" placeholder="Senha" required />
+                <button type="submit">Entrar</button>
+                <div class="error" th:if="${erro}" th:text="${erro}"></div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

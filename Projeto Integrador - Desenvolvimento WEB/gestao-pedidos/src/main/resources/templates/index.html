@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pedidos</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+</head>
+<body>
+    <div class="container">
+    <h1>Lista de Pedidos</h1>
+    <a th:href="@{/pedidos/novo}" class="btn">Novo Pedido</a>
+ 
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Representante</th>
+                    <th>Valor</th>
+                    <th>Item</th>
+                    <th>Data</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pedido : ${pedidos}">
+                    <td th:text="${pedido.id}"></td>
+                    <td th:text="${pedido.cliente}"></td>
+                    <td th:text="${pedido.representante}"></td>
+                    <td th:text="${pedido.valor}"></td>
+                    <td th:text="${pedido.item}"></td>
+                    <td th:text="${pedido.dataPedido}"></td>
+                    <td th:text="${pedido.situacao}"></td>
+                    <td>
+                        <a th:href="@{'/pedidos/editar/' + ${pedido.id}}" class="btn-small">Editar</a>
+                        <a th:href="@{'/pedidos/excluir/' + ${pedido.id}}" class="btn-small danger">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
