@@ -1,0 +1,7 @@
+Link do GITHUB: https://github.com/iKlaen/Projeto-Integrador-Assistente-de-desenvolvimento-de-sistemas.git
+
+OBS: Ao testar o sistema a pagina inicial (TELA DE LOGIN) será: http://localhost:8080/  
+
+**Usuário e senha para acessar o sistema**
+Usuário: Admin
+Senha: 123
