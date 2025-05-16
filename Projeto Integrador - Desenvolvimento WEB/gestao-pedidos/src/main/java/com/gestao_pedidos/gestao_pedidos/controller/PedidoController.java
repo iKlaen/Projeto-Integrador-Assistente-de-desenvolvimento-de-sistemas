@@ -17,89 +17,40 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/pedidos")
+@RequestMapping("/pedido")
 public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
-
-    // Listar todos os pedidos
-    @GetMapping
-    public String listar(Model model, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("pedidos", pedidoRepository.listarTodos());
-        return "index";
-    }
-
-    // Exibir formulário para novo pedido
     @GetMapping("/novo")
-    public String novo(Model model, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
+    public String novoPedido(Model model) {
         model.addAttribute("pedido", new Pedido());
         return "form";
     }
 
-    // Salvar novo pedido
-    @PostMapping
-    public String salvar(@ModelAttribute Pedido pedido, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        pedidoRepository.salvar(pedido);
-        return "redirect:/pedidos";
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute Pedido pedido) {
+        pedidoRepository.save(pedido);
+        return "redirect:/";
     }
 
-    // Editar pedido existente
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        Pedido pedido = pedidoRepository.buscarPorId(id);
-        if (pedido != null) {
-            model.addAttribute("pedido", pedido);
-            return "form";
-        } else {
-            return "redirect:/pedidos";
-        }
+    public String editar(@PathVariable Long id, Model model) {
+        Pedido pedido = pedidoRepository.findById(id).orElseThrow();
+        model.addAttribute("pedido", pedido);
+        return "form";
     }
 
-    // Atualizar pedido existente
-    @PostMapping("/atualizar")
-    public String atualizar(@ModelAttribute Pedido pedido, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        pedidoRepository.salvar(pedido);
-        return "redirect:/pedidos";
-    }
-
-    // Excluir pedido
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Long id, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        pedidoRepository.excluir(id);
-        return "redirect:/pedidos";
+    public String excluir(@PathVariable Long id) {
+        pedidoRepository.deleteById(id);
+        return "redirect:/";
     }
 
-    // Alterar situação do pedido (faturado ou cancelado)
-    @GetMapping("/situacao/{id}/{novaSituacao}")
-    public String alterarSituacao(@PathVariable Long id, @PathVariable String novaSituacao, HttpSession session) {
-        if (session.getAttribute("usuarioLogado") == null) {
-            return "redirect:/";
-        }
-        Pedido pedido = pedidoRepository.buscarPorId(id);
-        if (pedido != null) {
-            pedido.setSituacao(novaSituacao);
-            pedidoRepository.salvar(pedido);
-        }
-        return "redirect:/pedidos";
+    @GetMapping("/")
+    public String listar(Model model) {
+        model.addAttribute("pedidos", pedidoRepository.findAll());
+        return "index";
     }
 }
 
