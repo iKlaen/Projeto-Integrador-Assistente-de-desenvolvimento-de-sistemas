@@ -21,8 +21,8 @@ Somos um Centro de Serviços de beneficiamento de aços planos e fornecedora de 
         <div class="right-panel">
             <form th:action="@{/login}" method="post" th:object="${usuario}" class="login-form">
                 <img src="#" alt="Logo" />
-                <input type="text" th:field="*{login}" placeholder="Usuário" required />
-                <input type="password" th:field="*{senha}" placeholder="Senha" required />
+                <input type="text" name="username" th:field="*{login}" placeholder="Usuário" required />
+                <input type="password" name="password" th:field="*{senha}" placeholder="Senha" required />
                 <button type="submit">Entrar</button>
                 <div class="error" th:if="${erro}" th:text="${erro}"></div>
             </form>

@@ -22,22 +22,5 @@ public class LoginController {
         model.addAttribute("usuario", new Usuario());
         return "login";
     }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute Usuario usuario, HttpSession session, Model model) {
-        if ("Admin".equals(usuario.getLogin()) && "123".equals(usuario.getSenha())) {
-            session.setAttribute("usuarioLogado", usuario.getLogin());
-            return "redirect:/pedidos";
-        } else {
-            model.addAttribute("erro", "Login ou senha inválidos!");
-            return "login";
-        }
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
 }
 
