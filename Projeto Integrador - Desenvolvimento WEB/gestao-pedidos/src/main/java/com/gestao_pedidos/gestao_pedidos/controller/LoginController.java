@@ -34,7 +34,7 @@ public class LoginController {
         Usuario user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
         if (user != null) {
             session.setAttribute("usuarioLogado", user);
-            return "redirect:/pedido/";
+            return "redirect:/pedidos";
         } else {
             model.addAttribute("erro", "Usuário ou senha inválidos.");
             return "login";

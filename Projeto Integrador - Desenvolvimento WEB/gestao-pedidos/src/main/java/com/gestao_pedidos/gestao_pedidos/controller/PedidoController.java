@@ -14,43 +14,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
+    // Tela de novo pedido
     @GetMapping("/novo")
     public String novoPedido(Model model) {
         model.addAttribute("pedido", new Pedido());
         return "form";
     }
 
-    @PostMapping("/salvar")
+    // Salvar pedido
+    @PostMapping
     public String salvar(@ModelAttribute Pedido pedido) {
         pedidoRepository.save(pedido);
-        return "redirect:/";
+        return "redirect:/pedidos";
     }
 
+    // Editar pedido
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        Pedido pedido = pedidoRepository.findById(id).orElseThrow();
+        Pedido pedido = pedidoRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         model.addAttribute("pedido", pedido);
         return "form";
     }
 
+    // Excluir pedido
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/pedidos";
     }
 
-    @GetMapping("/")
+    // Listar pedidos
+    @GetMapping
     public String listar(Model model) {
         model.addAttribute("pedidos", pedidoRepository.findAll());
         return "index";
     }
 }
-
