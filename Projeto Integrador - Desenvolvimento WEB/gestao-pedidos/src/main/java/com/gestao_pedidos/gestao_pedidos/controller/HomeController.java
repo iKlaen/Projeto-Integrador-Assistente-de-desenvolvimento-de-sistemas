@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class HomeController {
-
     @GetMapping("/")
     public String home() {
-        // Redireciona para a página de listagem de pedidos
-        return "redirect:/pedido/";
+        return "redirect:/login";
     }
 }
+

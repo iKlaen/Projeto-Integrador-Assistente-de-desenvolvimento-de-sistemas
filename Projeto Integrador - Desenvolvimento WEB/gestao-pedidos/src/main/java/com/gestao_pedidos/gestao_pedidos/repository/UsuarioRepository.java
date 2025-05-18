@@ -5,12 +5,13 @@
 package com.gestao_pedidos.gestao_pedidos.repository;
 
 import com.gestao_pedidos.gestao_pedidos.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 /**
  *
  * @author wilso
  */
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Usuario findByLogin(String login);
+    Usuario findByLoginAndSenha(String login, String senha);
 }
+
