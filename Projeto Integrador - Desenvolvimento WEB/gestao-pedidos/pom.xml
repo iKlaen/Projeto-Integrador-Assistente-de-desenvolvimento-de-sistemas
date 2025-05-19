@@ -9,7 +9,7 @@
     <artifactId>gestao-pedidos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>  gestao-pedidos</name>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <description>Sistema Web Spring MVC - Pedidos de Corte de Bobinas de Aço</description>
 
     <parent>
